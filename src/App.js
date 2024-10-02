@@ -1,25 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+// src/App.js
+import React from 'react';
+import { Container } from '@mui/material';
+import Header from './components/Header';
+import AnimatedDisplay from './components/AnimatedDisplay';
+import FileUpload from './components/FileUpload';
+import loadingAnimation from './assets/loading-animation-cd-v2.gif';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    return (
+        <Container
+            maxWidth="sm"
+            style={{ textAlign: 'center', marginTop: '100px' }}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+            <Header />
+            <AnimatedDisplay src={loadingAnimation} /> {/* Use the imported GIF */}
+            <FileUpload />
+        </Container>
+    );
 }
 
 export default App;
