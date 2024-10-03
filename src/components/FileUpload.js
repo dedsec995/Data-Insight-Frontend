@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+// src/components/FileUpload
+import React, { useState } from 'react';
 import {Button, CircularProgress} from '@mui/material';
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
