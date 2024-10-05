@@ -1,4 +1,4 @@
-// src/components/SecondPage.js
+// src/Pages/SecondPage.js
 import React from 'react';
 import GraphPage from '../components/Graphs';
 import Navbar from '../components/Navbar';

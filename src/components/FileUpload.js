@@ -26,9 +26,10 @@ const handleUpload = async () => {
 
     try {
         const response = await axios.post("http://127.0.0.1:5000/upload", formData);
-        const sessionId = response.data.session_id;
-        localStorage.setItem('session_id', sessionId);
-        navigate(`/graph/${sessionId}`);
+        const { session_id, image_paths } = response.data;
+        localStorage.setItem('session_id', session_id);
+        localStorage.setItem('image_paths', JSON.stringify(image_paths));
+        navigate(`/graph/${session_id}`);
     } catch (error) {
         alert("Error uploading file");
     } finally {

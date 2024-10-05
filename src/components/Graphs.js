@@ -5,7 +5,6 @@ import 'react-image-gallery/styles/css/image-gallery.css';
 import {useParams} from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
 
-
 const Graphs = () => {
     const {sessionId} = useParams();
     const [images, setImages] = useState([]);
@@ -13,8 +12,10 @@ const Graphs = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            try {
-                const response = await axios.get(`http://127.0.0.1:5000/data/${sessionId}`);
+            try { // Retrieve image paths from localStorage
+                const imagePaths = JSON.parse(localStorage.getItem('image_paths') || '[]');
+                const response = await axios.post(`http://127.0.0.1:5000/data/${sessionId}`, {imagePaths: imagePaths});
+
                 const {images: imageSrcs} = response.data;
                 const formattedImages = imageSrcs.map((image, index) => ({
                         original: `data:image/png;base64,${image}`,
@@ -42,4 +43,3 @@ const Graphs = () => {
 };
 
 export default Graphs;
-
