@@ -1,36 +1,66 @@
-// src/components/SuggestionBubbles.js
 import React from 'react';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import CircularProgress from '@mui/material/CircularProgress';
 import {useNavigate} from 'react-router-dom';
+import Tooltip from '@mui/material/Tooltip';
 
 const SuggestionBubbles = ({suggestions, loading, sessionId}) => {
     const navigate = useNavigate();
 
+    // console.log('SuggestionBubbles - suggestions:', suggestions);
+    // console.log('SuggestionBubbles - loading:', loading);
+
     const handleSuggestionClick = (suggestion) => {
-        navigate(`/result/${sessionId}`, {state: {
-                suggestion
-            }});
+        console.log('Clicked suggestion:', suggestion);
+        navigate(`/result/${sessionId}`, {
+            state: {
+                suggestion: suggestion.model
+            }
+        });
     };
+
+    if (loading) {
+        return (
+            <div style={
+                {marginTop: '20px'}
+            }>
+                <h3>Suggested Models</h3>
+                <CircularProgress size={24}/>
+            </div>
+        );
+    }
+
+    if (!suggestions || suggestions.length === 0) {
+        return (
+            <div style={
+                {marginTop: '20px'}
+            }>
+                <h3>Suggested Models</h3>
+                <p>No suggestions available, try refreshing</p>
+            </div>
+        );
+    }
 
     return (
         <div style={
             {marginTop: '20px'}
         }>
-            <h3>Suggestions</h3>
-            {
-            loading ? (
-                <CircularProgress size={24}/>
-            ) : (
-                <Stack direction="row"
-                    spacing={1}
-                    flexWrap="wrap"
-                    justifyContent="center">
-                    {
-                    suggestions.map((suggestion, index) => (
-                        <Chip key={index}
-                            label={suggestion}
+            <h3>Suggested Models</h3>
+            <Stack direction="row"
+                spacing={1}
+                flexWrap="wrap"
+                justifyContent="center">
+                {
+                suggestions.map((suggestion, index) => (
+                    <Tooltip key={index}
+                        title={
+                            suggestion.reason
+                        }
+                        arrow>
+                        <Chip label={
+                                suggestion.model
+                            }
                             variant="outlined"
                             style={
                                 {
@@ -41,12 +71,11 @@ const SuggestionBubbles = ({suggestions, loading, sessionId}) => {
                             onClick={
                                 () => handleSuggestionClick(suggestion)
                             }/>
-                    ))
-                } </Stack>
-            )
-        } </div>
+                    </Tooltip>
+                ))
+            } </Stack>
+        </div>
     );
 };
 
 export default SuggestionBubbles;
-
