@@ -7,10 +7,6 @@ import Tooltip from '@mui/material/Tooltip';
 
 const SuggestionBubbles = ({suggestions, loading, sessionId}) => {
     const navigate = useNavigate();
-
-    // console.log('SuggestionBubbles - suggestions:', suggestions);
-    // console.log('SuggestionBubbles - loading:', loading);
-
     const handleSuggestionClick = (suggestion) => {
         console.log('Clicked suggestion:', suggestion);
         navigate(`/result/${sessionId}`, {
